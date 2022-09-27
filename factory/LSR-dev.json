@@ -1,0 +1,9 @@
+{
+	"name": "LSR-dev",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "f41bfb1a-a143-46e8-927f-fbab9b6b7407",
+		"tenantId": "535f19ad-6d60-47fd-a95c-23aec3d8d02b"
+	}
+}
