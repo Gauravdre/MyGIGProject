@@ -1,5 +1,5 @@
 {
-	"name": "Get meta data with conditions",
+	"name": "Get meta data with filter on EMP files  conditions",
 	"properties": {
 		"activities": [
 			{
@@ -31,6 +31,29 @@
 					},
 					"formatSettings": {
 						"type": "BinaryReadSettings"
+					}
+				}
+			},
+			{
+				"name": "Filter Emp files",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "Get Metadata",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('Get Metadata').output.childItems",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@not(startswith(item().name,'emp' ))",
+						"type": "Expression"
 					}
 				}
 			}
