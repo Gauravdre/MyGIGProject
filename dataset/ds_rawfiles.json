@@ -1,0 +1,17 @@
+{
+	"name": "ds_rawfiles",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sa_8839",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "rawfilescontainer"
+			}
+		}
+	}
+}
