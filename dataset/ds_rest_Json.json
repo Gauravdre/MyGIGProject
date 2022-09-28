@@ -1,0 +1,38 @@
+{
+	"name": "ds_rest_Json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sa_8839",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "RestAPI.txt",
+				"fileSystem": "adlsfilesystem"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"id": {
+					"type": "integer"
+				},
+				"name": {
+					"type": "string"
+				},
+				"email": {
+					"type": "string"
+				},
+				"gender": {
+					"type": "string"
+				},
+				"status": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}

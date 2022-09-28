@@ -1,0 +1,22 @@
+{
+	"name": "Ds_json_txt",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sa_8839",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Json2FileDS",
+				"fileSystem": "adlsfilesystem"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
