@@ -46,6 +46,9 @@
 				},
 				{
 					"name": "derivedColumn1"
+				},
+				{
+					"name": "alterRow1"
 				}
 			],
 			"scriptLines": [
@@ -97,6 +100,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select2",
 				"select2 derive(Isactive_s = 0) ~> derivedColumn1",
+				"derivedColumn1 alterRow(updateIf(1 ==1)) ~> alterRow1",
 				"AddingIsactivecolumn sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     deletable:false,",
