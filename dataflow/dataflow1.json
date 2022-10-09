@@ -1,0 +1,120 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_scd2_csv",
+						"type": "DatasetReference"
+					},
+					"name": "sourcescd"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_azure_sql",
+						"type": "DatasetReference"
+					},
+					"name": "sqlsink"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_azure_sql",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AddingIsactivecolumn"
+				},
+				{
+					"name": "lookup1"
+				},
+				{
+					"name": "select1"
+				},
+				{
+					"name": "filter1"
+				},
+				{
+					"name": "select2"
+				},
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          empid as integer,",
+				"          name as string,",
+				"          country as string,",
+				"          department as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> sourcescd",
+				"source(output(",
+				"          Surrkey as integer,",
+				"          empid as integer,",
+				"          name as string,",
+				"          country as string,",
+				"          department as string,",
+				"          Isactive as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> sqlsink",
+				"sourcescd derive(Isactvie = 1) ~> AddingIsactivecolumn",
+				"sourcescd, select1 lookup(empid == empid_s,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> lookup1",
+				"sqlsink select(mapColumn(",
+				"          Surrkey_s = Surrkey,",
+				"          empid_s = empid,",
+				"          name_s = name,",
+				"          country_s = country,",
+				"          department_s = department,",
+				"          Isactive_s = Isactive",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"lookup1 filter(not(isNull(empid_s))) ~> filter1",
+				"filter1 select(mapColumn(",
+				"          Surrkey_s,",
+				"          empid_s,",
+				"          name_s,",
+				"          country_s,",
+				"          department_s,",
+				"          Isactive_s",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> select2",
+				"select2 derive(Isactive_s = 0) ~> derivedColumn1",
+				"AddingIsactivecolumn sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          empid,",
+				"          name,",
+				"          country,",
+				"          department,",
+				"          Isactvie",
+				"     )) ~> sink2"
+			]
+		}
+	}
+}

@@ -1,0 +1,40 @@
+{
+	"name": "ds_scd2_csv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_scd2_csv",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "SCD2.csv",
+				"fileSystem": "rawfilescontainer"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "empid",
+				"type": "String"
+			},
+			{
+				"name": "name",
+				"type": "String"
+			},
+			{
+				"name": "country",
+				"type": "String"
+			},
+			{
+				"name": "department",
+				"type": "String"
+			}
+		]
+	}
+}

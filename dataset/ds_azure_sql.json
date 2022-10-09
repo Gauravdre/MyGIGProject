@@ -10,7 +10,7 @@
 		"schema": [],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "employee"
+			"table": "SCD2"
 		}
 	}
 }
