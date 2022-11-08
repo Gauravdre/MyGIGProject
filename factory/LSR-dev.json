@@ -1,5 +1,10 @@
 {
 	"name": "LSR-dev",
+	"properties": {
+		"globalConfigurations": {
+			"PipelineBillingEnabled": "true"
+		}
+	},
 	"location": "eastus",
 	"identity": {
 		"type": "SystemAssigned",
